@@ -345,6 +345,7 @@ InputHandler {
 
         } else if (pressedKey.text.length !== 0) {
             var wordSymbol = "\'-".indexOf(pressedKey.text) >= 0
+            var hyphen = "-".indexOf(pressedKey.text) >= 0
 
             if (thread.isLetter(pressedKey.text) || wordSymbol) {
                 var  forceAdd = pressedKey.keyType === KeyType.PopupKey
@@ -360,6 +361,9 @@ InputHandler {
                 }
 
                 MInputMethodQuick.sendPreedit(preedit)
+                if (hyphen) {
+                    commit(preedit)
+                }
                 handled = true
             } else {
                 // normal symbols etc.
